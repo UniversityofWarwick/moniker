@@ -1,6 +1,6 @@
 # Moniker #
 
-A random name generator for Node.js.
+A pseudorandom name generator for Node.js.
 
 ## Synopsis ##
 
@@ -9,6 +9,9 @@ Moniker provides a default adjective/noun generator. Use it like this:
     var Moniker = require('moniker');
     console.log(Moniker.choose());
     // Example output: murky-hands
+      
+    console.log(Moniker.choose());
+    // Example output on second run: material-authority
 
 You can also make a custom generator. Generators create random names
 using dictionaries. Moniker has built-in `noun`, `verb`, and
@@ -17,12 +20,28 @@ using dictionaries. Moniker has built-in `noun`, `verb`, and
     var Moniker = require('moniker');
     var names = Moniker.generator([Moniker.adjective, Moniker.noun]);
     console.log(names.choose());
+    
+If you pass a string (and optional salt) to the `choose()` function,
+then the same pseudo-random name will be returned for that combination.
+
+    var Moniker = require('moniker');    
+    console.log(Moniker.choose('John Doe'));
+    // Example output: absurd-discovery
+      
+    console.log(Moniker.choose('John Doe'));
+    // Example output still: absurd-discovery
+      
+    console.log(Moniker.choose('John Doe', 'goodbye rainbows'));
+    // Example output with salt: glorious-hospital
+      
+    console.log(Moniker.choose('John Doe', 'goodbye rainbows'));
+    // Example output still: glorious-hospital
 
 ## Installation ##
 
 Install Moniker using NPM:
 
-    npm install moniker
+    npm install git://github.com/UniversityofWarwick/moniker.git
 
 ## API ##
 
@@ -65,9 +84,10 @@ file of words separated by spaces or newlines, or a function that
 should return a `Dictionary` when called. The `options` are passed
 along to each newly-constructed `Dictionary`.
 
-**generator.choose()**
+**generator.choose(src, salt)**
 
-Create a new name.
+Create a new name. The arguments are optional; see `dict.choose()`
+below for details.
 
 ### Dictionaries ###
 
@@ -103,9 +123,11 @@ Load words from `path` into this dictionary. Options default to:
 
 Words larger than `maxSize` are ignored.
 
-**dict.choose()**
+**dict.choose(src, salt)**
 
-Return a random word from this dictionary.
+Return a word from this dictionary. If a `src` is supplied, the same
+word should be returned every call, otherwise it will be random.
+Any supplied `salt` will salt the lookup.
 
 
 

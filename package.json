@@ -1,7 +1,10 @@
 {
   "name": "moniker",
-  "version": "0.1.2",
-  "description": "Generate random names.",
+  "version": "0.2.0",
+  "description": "Generate pseudorandom names.",
   "author": "Ben Weaver <ben@orangesoda.net>",
+  "contributors": [
+    "University of Warwick <webteam@warwick.ac.uk>"
+  ],
   "main": "./lib/moniker"
 }
